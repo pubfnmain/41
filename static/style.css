@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  background: #7f7f7f;
+  display: flex
+}
+
+main {
+  margin: auto;
+  display: flex;
+  flex-direction: column
+}
+
+button {
+  font: 1rem sans;
+  margin-top: 1rem;
+  padding: 1rem;
+}
