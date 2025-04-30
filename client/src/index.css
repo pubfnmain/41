@@ -4,6 +4,10 @@ html, body {
   height: 100%;
 }
 
+:not(:root):fullscreen::backdrop {
+  background: #1f1f1f;
+}
+
 body {
   font-family: "JetBrains Mono", monospace;
   background: #1f1f1f;

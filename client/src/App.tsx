@@ -58,6 +58,23 @@ export default function App() {
     }
   }
 
+  const tmove = e => {
+    const canvas = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
+    const ctx = canvas.getContext("2d")
+    if (state) {
+      e = e.nativeEvent.touches[0]
+      x = e.clientX - rect.left
+      y = e.clientY - rect.top
+      x = Math.floor(x / 10)
+      y = Math.floor(y / 10)
+
+      fill(ctx, x, y)
+      for (const [dx, dy] of vectors)
+        fill(ctx, x + dx, y + dy)
+    }
+  }
+
   function clear() {
     setData(createData())
     setResult(Object.fromEntries(
@@ -68,7 +85,7 @@ export default function App() {
 
   function push() {
     console.log(data)
-    fetch("http://127.0.0.1:8000", {
+    fetch("http://localhost:8000", {
       method: "POST",
       body: JSON.stringify(data)
     })
@@ -81,6 +98,7 @@ export default function App() {
       <div>
         <button onClick={clear}>clear</button>
         <button onClick={push}>push</button>
+        <button onClick={() => document.body.requestFullscreen()}>full</button>
       </div>
       <canvas
         ref={canvasRef}
@@ -89,6 +107,9 @@ export default function App() {
         onMouseDown={down}
         onMouseUp={up}
         onMouseMove={move}
+        onTouchStart={down}
+        onTouchEnd={up}
+        onTouchMove={tmove}
       />
       <div className="fs m-1">
         Result: {
@@ -98,6 +119,6 @@ export default function App() {
         }
       </div>
     </div>
-    <div id="result">{Object.entries(result).map(([k, v]) => <div key={k}>{k}: {v}</div>)}</div>
+    <div id="result">{Object.entries(result).map(([k, v]) => <div key={k}>{k}: {v}%</div>)}</div>
   </>
 }

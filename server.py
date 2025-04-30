@@ -52,4 +52,4 @@ app = Starlette(
 
 
 if __name__ == "__main__":
-    run(app)
+    run(app, host="0.0.0.0")
